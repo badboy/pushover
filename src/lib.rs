@@ -52,7 +52,7 @@ pub mod requests;
 mod types;
 
 pub use self::client::API;
-pub use self::error::{Error, ErrorKind};
+pub use self::error::Error;
 pub use self::types::{OperatingSystem, Priority, Sound, User, UserType};
 
 #[cfg(test)]

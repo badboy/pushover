@@ -1,18 +1,20 @@
 use std::fmt;
 
-use crate::error::ErrorKind;
+use crate::error::Error;
 use reqwest::Method;
 use serde::de::{DeserializeOwned, Deserializer};
 use serde::{Deserialize};
+#[cfg(test)]
+use serde::Serialize;
 use url::form_urlencoded::Serializer;
 use url::{Url, UrlQuery};
 
 use std::fmt::Debug;
 
 pub trait RawResponse: DeserializeOwned + 'static {
-    fn get_error(&self) -> Option<crate::error::ErrorKind> {
+    fn get_error(&self) -> Option<Error> {
         if self.status() != 1 {
-            Some(crate::error::ErrorKind::PushoverError {
+            Some(Error::PushoverError {
                 status: self.status(),
                 request: self.request().to_string(),
                 errors: self
@@ -65,7 +67,7 @@ pub trait Request {
 
 #[derive(Debug)]
 pub enum Response<T: Request> {
-    Error(ErrorKind),
+    Error(Error),
     Success(T::RawResponseType),
 }
 
@@ -152,7 +154,7 @@ mod tests {
         let resp: Response<TestRequest> = ::serde_json::from_str(&raw_response_str).unwrap();
 
         match resp {
-            Response::Error::<TestRequest>(ErrorKind::PushoverError {
+            Response::Error::<TestRequest>(Error::PushoverError {
                 status,
                 errors,
                 request,

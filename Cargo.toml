@@ -2,7 +2,7 @@
 name = "pushover"
 version = "0.4.0"
 authors = ["Steven Blake <s.blake.08@aberdeen.ac.uk>"]
-edition = "2018"
+edition = "2021"
 
 description = "A wrapper for the Pushover API."
 documentation = "https://docs.rs/pushover"
@@ -12,13 +12,13 @@ homepage = "https://github.com/sb89/pushover"
 repository = "https://github.com/sb89/pushover.git"
 
 [dependencies]
-tokio-core = "0.1.18"
-error-chain = "0.12.4"
-serde = { version = "1.0.159", features = ["derive"]}
+serde = { version = "1.0.159", features = ["derive"] }
 serde_json = "1.0.95"
 urlencoding = "2.1.2"
 url = "2.3.1"
 tokio-test = "0.4.2"
+thiserror = "1.0.40"
+tokio = "1.27.0"
 
 [dependencies.reqwest]
 version = "0.11.16"

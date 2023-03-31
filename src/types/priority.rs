@@ -36,13 +36,11 @@ impl Priority {
             -1 => Some(Priority::Low),
             0 => Some(Priority::Normal),
             1 => Some(Priority::High),
-            2 => {
-                Some(Priority::Emergency {
-                         retry: 0,
-                         expire: 0,
-                         callback_url: None,
-                     })
-            }
+            2 => Some(Priority::Emergency {
+                retry: 0,
+                expire: 0,
+                callback_url: None,
+            }),
             _ => None,
         }
     }
@@ -50,11 +48,13 @@ impl Priority {
 
 impl<'de> Deserialize<'de> for Priority {
     fn deserialize<D>(deserializer: D) -> Result<Priority, D::Error>
-        where D: Deserializer<'de>
+    where
+        D: Deserializer<'de>,
     {
         let raw: i8 = Deserialize::deserialize(deserializer)?;
 
-        Priority::from_int(raw)
-            .ok_or_else(|| de::Error::invalid_value(de::Unexpected::Signed(raw as i64), &"-2, -1, 0, 1, 2"))
+        Priority::from_int(raw).ok_or_else(|| {
+            de::Error::invalid_value(de::Unexpected::Signed(raw as i64), &"-2, -1, 0, 1, 2")
+        })
     }
 }

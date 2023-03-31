@@ -1,6 +1,6 @@
 //! https://pushover.net/api/licensing
-mod check_credits;
 mod assign;
+mod check_credits;
 
-pub use self::check_credits::{CheckCredits, CheckCreditsResponse};
 pub use self::assign::Assign;
+pub use self::check_credits::{CheckCredits, CheckCreditsResponse};
