@@ -3,7 +3,7 @@ use std::fmt;
 use crate::error::ErrorKind;
 use reqwest::Method;
 use serde::de::{DeserializeOwned, Deserializer};
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize};
 use url::form_urlencoded::Serializer;
 use url::{Url, UrlQuery};
 
